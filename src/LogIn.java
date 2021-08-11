@@ -9,12 +9,16 @@ public class LogIn extends JFrame implements ActionListener {
 
     public LogIn(){
         ImageIcon logInIcon=new ImageIcon("RustyRentsLogo.png");
+        Image rustyRentsLogo=logInIcon.getImage();
+        Image newing = rustyRentsLogo.getScaledInstance(100,100,Image.SCALE_SMOOTH);
+
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setIconImage(logInIcon.getImage());
         this.setSize(500,500);
         this.setLayout(new BorderLayout());
 
+        logInIcon= new ImageIcon(newing);
 
         JPanel headerPanel=new JPanel();
         JPanel bodyPanel=new JPanel();
@@ -32,10 +36,8 @@ public class LogIn extends JFrame implements ActionListener {
         this.setResizable(false);
 
         JLabel headerImage = new JLabel(logInIcon);
-        headerImage.setOpaque(true);
-        headerPanel.setLayout(new BorderLayout());
         headerPanel.add(headerImage,BorderLayout.CENTER);
-        headerImage.setPreferredSize(new Dimension(20,20));
+        headerImage.setPreferredSize(new Dimension(100,100));
 
         JLabel usernameLabel=new JLabel("Username: ");
         usernameLabel.setPreferredSize(new Dimension(100,100));
@@ -70,6 +72,7 @@ public class LogIn extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==registerButton){
+            this.dispose();
             Register register = new Register();
         }
         if(e.getSource()==logInButton){
