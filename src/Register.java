@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Register extends JFrame implements ActionListener {
+    String customer;
 
     JPanel panelContainer=new JPanel();
     JPanel firstPanel=new JPanel();
@@ -16,10 +17,15 @@ public class Register extends JFrame implements ActionListener {
     JButton backToLogInScreenButton=new JButton("Back to Log in");
     JButton nextStepButton=new JButton("Next");
     JButton backButton=new JButton("Back");
+    JButton finalNextButton=new JButton("Next");
+
+    JComboBox customerStatusComboBox;
+    JComboBox preferredLocationComboBox;
 
     public Register(){
         ImageIcon registrationIcon=new ImageIcon("RustyRentsLogo.png");
         ImageIcon secondPanelLogo=new ImageIcon("RustyRentsLogo.png");
+        ImageIcon thirdPanelLogo=new ImageIcon("RustyRentsLogo.png");
         Image rustyRentsLogo=registrationIcon.getImage();
         Image newing = rustyRentsLogo.getScaledInstance(100,100,Image.SCALE_SMOOTH);
 
@@ -31,6 +37,7 @@ public class Register extends JFrame implements ActionListener {
 
         registrationIcon=new ImageIcon(newing);
         secondPanelLogo=new ImageIcon(newing);
+        thirdPanelLogo=new ImageIcon(newing);
 
         panelContainer.setLayout(cardLayout);
         panelContainer.add(firstPanel,"1");
@@ -132,6 +139,54 @@ public class Register extends JFrame implements ActionListener {
 
 
 
+        //thirdPanel
+        thirdPanel.setLayout(new BorderLayout());
+
+        JLabel headerForThirdPanel=new JLabel(thirdPanelLogo);
+        JLabel cityLabel=new JLabel("City:");
+        JLabel provinceLabel=new JLabel("Province:");
+        JLabel customerStatusLabel=new JLabel("Status:");
+        JLabel prefLocationLabel=new JLabel("Preferred location:");
+
+        JTextField cityTextField=new JTextField();
+        cityTextField.setPreferredSize(new Dimension(120,20));
+        JTextField provinceTextField=new JTextField();
+        provinceTextField.setPreferredSize(new Dimension(120,20));
+
+
+        String[] customerStatus={"Student","Average class","Wealthy","Poor"};
+        customerStatusComboBox=new JComboBox(customerStatus);
+        String[] desiredLocation={"Near Universities","Near the center","Wealthy neighbourhood","Suburbs","Calm neighbourhood"};
+        preferredLocationComboBox=new JComboBox(desiredLocation);
+
+        finalNextButton.addActionListener(this);
+        finalNextButton.setForeground(Color.white);
+        finalNextButton.setBackground(new Color(139,0,139));
+
+        //subPanels
+            JPanel subPanelForThirdPanel1=new JPanel();
+            JPanel subPanelForThirdPanel2=new JPanel();
+            JPanel subPanelForThirdPanel3=new JPanel();
+
+            initializeSubPanels(subPanelForThirdPanel1,subPanelForThirdPanel2,subPanelForThirdPanel3);
+
+            subPanelForThirdPanel1.add(headerForThirdPanel);
+
+            subPanelForThirdPanel2.add(cityLabel);
+            subPanelForThirdPanel2.add(cityTextField);
+            subPanelForThirdPanel2.add(provinceLabel);
+            subPanelForThirdPanel2.add(provinceTextField);
+            subPanelForThirdPanel2.add(customerStatusLabel);
+            subPanelForThirdPanel2.add(customerStatusComboBox);
+            subPanelForThirdPanel2.add(prefLocationLabel);
+            subPanelForThirdPanel2.add(preferredLocationComboBox);
+
+            subPanelForThirdPanel3.add(finalNextButton);
+
+        thirdPanel.add(subPanelForThirdPanel1,BorderLayout.NORTH);
+        thirdPanel.add(subPanelForThirdPanel2,BorderLayout.CENTER);
+        thirdPanel.add(subPanelForThirdPanel3,BorderLayout.SOUTH);
+
         this.add(panelContainer);
         this.pack();
         this.setVisible(true);
@@ -142,16 +197,18 @@ public class Register extends JFrame implements ActionListener {
         panel3.setBackground(new Color(248,240,255));
 
         panel1.setPreferredSize(new Dimension(200,130));
-        panel2.setPreferredSize(new Dimension(200,120));
+        panel2.setPreferredSize(new Dimension(160,150));
         panel3.setPreferredSize(new Dimension(200,50));
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==customerButton){
+            customer="Renter";
             cardLayout.show(panelContainer,"2");
         }
         if(e.getSource()==landlordButton){
+            customer="Landlord";
             cardLayout.show(panelContainer,"2");
         }
         if(e.getSource()==backToLogInScreenButton){
@@ -162,7 +219,20 @@ public class Register extends JFrame implements ActionListener {
             cardLayout.show(panelContainer,"1");
         }
         if(e.getSource()==nextStepButton){
-            cardLayout.show(panelContainer,"3");
+            if(customer.equals("Renter")) {
+                cardLayout.show(panelContainer, "3");
+            }
+            if(customer.equals("Landlord")){
+                this.dispose();
+                //pop-up window is needed
+                new LogIn();
+            }
+        }
+        if(e.getSource()==finalNextButton){
+            this.dispose();
+            //need to add pop-up window to inform the user that
+            //their account is successfully created and they need to log into it
+            new LogIn();
         }
     }
 }

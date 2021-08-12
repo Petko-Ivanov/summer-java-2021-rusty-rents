@@ -26,7 +26,10 @@ public class LogIn extends JFrame implements ActionListener {
 
         headerPanel.setPreferredSize(new Dimension(100,100));
         bodyPanel.setPreferredSize(new Dimension(100,100));
-        footerPanel.setPreferredSize(new Dimension(100,100));
+        footerPanel.setPreferredSize(new Dimension(100,70));
+        headerPanel.setBackground(new Color(248,240,255));
+        bodyPanel.setBackground(new Color(248,240,255));
+        footerPanel.setBackground(new Color(248,240,255));
 
 
         this.add(headerPanel,BorderLayout.NORTH);
@@ -59,11 +62,14 @@ public class LogIn extends JFrame implements ActionListener {
         logInButton = new JButton("Log In");
         logInButton.setToolTipText("Log into your existing account");
         logInButton.setBackground(new Color(139,0,139));
+        logInButton.setForeground(Color.WHITE);
         footerPanel.add(logInButton);
 
         registerButton = new JButton("Register");
+        registerButton.addActionListener(this);
         registerButton.setToolTipText("Create a account for our platform");
         registerButton.setBackground(new Color(139,0,139));
+        registerButton.setForeground(Color.WHITE);
         footerPanel.add(registerButton);
 
         this.setVisible(true);
@@ -73,7 +79,7 @@ public class LogIn extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==registerButton){
             this.dispose();
-            Register register = new Register();
+             new Register();
         }
         if(e.getSource()==logInButton){
 
