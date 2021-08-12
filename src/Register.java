@@ -14,9 +14,12 @@ public class Register extends JFrame implements ActionListener {
     JButton customerButton=new JButton("Renter");
     JButton landlordButton=new JButton("Landlord");
     JButton backToLogInScreenButton=new JButton("Back to Log in");
+    JButton nextStepButton=new JButton("Next");
+    JButton backButton=new JButton("Back");
 
     public Register(){
         ImageIcon registrationIcon=new ImageIcon("RustyRentsLogo.png");
+        ImageIcon secondPanelLogo=new ImageIcon("RustyRentsLogo.png");
         Image rustyRentsLogo=registrationIcon.getImage();
         Image newing = rustyRentsLogo.getScaledInstance(100,100,Image.SCALE_SMOOTH);
 
@@ -27,6 +30,7 @@ public class Register extends JFrame implements ActionListener {
         this.setResizable(false);
 
         registrationIcon=new ImageIcon(newing);
+        secondPanelLogo=new ImageIcon(newing);
 
         panelContainer.setLayout(cardLayout);
         panelContainer.add(firstPanel,"1");
@@ -39,31 +43,107 @@ public class Register extends JFrame implements ActionListener {
         JLabel headerImage= new JLabel(registrationIcon);
         headerImage.setPreferredSize(new Dimension(100,100));
         JLabel accountOptionLabel=new JLabel("Choose your preferred option");
+
+        customerButton.setForeground(Color.white);
+        customerButton.setFocusable(false);
+        customerButton.setBackground(new Color(139,0,139));
         customerButton.addActionListener(this);
+
+        landlordButton.setForeground(Color.white);
+        landlordButton.setFocusable(false);
+        landlordButton.setBackground(new Color(139,0,139));
         landlordButton.addActionListener(this);
+
+        backToLogInScreenButton.setForeground(Color.white);
+        backToLogInScreenButton.setFocusable(false);
+        backToLogInScreenButton.setBackground(new Color(139,0,139));
         backToLogInScreenButton.addActionListener(this);
 
-        JPanel subPanelForFirstPanel1=new JPanel();
-        JPanel subPanelForFirstPanel2=new JPanel();
-        JPanel subPanelForFirstPanel3=new JPanel();
-        subPanelForFirstPanel1.setPreferredSize(new Dimension(200,150));
-        subPanelForFirstPanel2.setPreferredSize(new Dimension(200,100));
-        subPanelForFirstPanel3.setPreferredSize(new Dimension(200,50));
+        //subPanels
+            JPanel subPanelForFirstPanel1=new JPanel();
+            JPanel subPanelForFirstPanel2=new JPanel();
+            JPanel subPanelForFirstPanel3=new JPanel();
+
+            initializeSubPanels(subPanelForFirstPanel1,subPanelForFirstPanel2,subPanelForFirstPanel3);
+
+            subPanelForFirstPanel1.add(headerImage);
+            subPanelForFirstPanel2.add(accountOptionLabel,BorderLayout.SOUTH);
+            subPanelForFirstPanel2.add(customerButton,BorderLayout.SOUTH);
+            subPanelForFirstPanel2.add(landlordButton,BorderLayout.SOUTH);
+            subPanelForFirstPanel3.add(backToLogInScreenButton);
 
         firstPanel.add(subPanelForFirstPanel1,BorderLayout.NORTH);
         firstPanel.add(subPanelForFirstPanel2,BorderLayout.CENTER);
         firstPanel.add(subPanelForFirstPanel3,BorderLayout.SOUTH);
 
-        subPanelForFirstPanel1.add(headerImage,BorderLayout.CENTER);
-        subPanelForFirstPanel2.add(accountOptionLabel,BorderLayout.SOUTH);
-        subPanelForFirstPanel2.add(customerButton,BorderLayout.SOUTH);
-        subPanelForFirstPanel2.add(landlordButton,BorderLayout.SOUTH);
 
-        subPanelForFirstPanel3.add(backToLogInScreenButton);
+
+
+        //secondPanel
+        secondPanel.setLayout(new BorderLayout());
+
+        JLabel headerImageForSecondPanel=new JLabel(secondPanelLogo);
+        JLabel usernameLabel= new JLabel("Username:");
+        JLabel passwordLabel=new JLabel("Password:");
+        JLabel confirmPasswordLabel=new JLabel("Confirm password:");
+        JLabel emailLabel=new JLabel("E-mail:");
+
+        JTextField usernameTextField= new JTextField();
+        usernameTextField.setPreferredSize(new Dimension(70,20));
+        JPasswordField passwordTextField=new JPasswordField();
+        passwordTextField.setPreferredSize(new Dimension(70,20));
+        passwordTextField.setEchoChar('*');
+        JPasswordField confirmPasswordTextField=new JPasswordField();
+        confirmPasswordTextField.setPreferredSize(new Dimension(70,20));
+        confirmPasswordTextField.setEchoChar('*');
+        JTextField emailTextField=new JTextField();
+        emailTextField.setPreferredSize(new Dimension(70,20));
+
+        nextStepButton.addActionListener(this);
+        nextStepButton.setForeground(Color.white);
+        nextStepButton.setBackground(new Color(139,0,139));
+        backButton.addActionListener(this);
+        backButton.setForeground(Color.white);
+        backButton.setBackground(new Color(139,0,139));
+
+        //subPanels
+            JPanel subPanelForSecondPanel1=new JPanel();
+            JPanel subPanelForSecondPanel2=new JPanel();
+            JPanel subPanelForSecondPanel3=new JPanel();
+            initializeSubPanels(subPanelForSecondPanel1,subPanelForSecondPanel2,subPanelForSecondPanel3);
+
+            subPanelForSecondPanel1.add(headerImageForSecondPanel);
+
+            subPanelForSecondPanel2.add(usernameLabel);
+            subPanelForSecondPanel2.add(usernameTextField);
+            subPanelForSecondPanel2.add(passwordLabel);
+            subPanelForSecondPanel2.add(passwordTextField);
+            subPanelForSecondPanel2.add(confirmPasswordLabel);
+            subPanelForSecondPanel2.add(confirmPasswordTextField);
+            subPanelForSecondPanel2.add(emailLabel);
+            subPanelForSecondPanel2.add(emailTextField);;
+
+            subPanelForSecondPanel3.add(nextStepButton);
+            subPanelForSecondPanel3.add(backButton);
+
+        secondPanel.add(subPanelForSecondPanel1,BorderLayout.NORTH);
+        secondPanel.add(subPanelForSecondPanel2,BorderLayout.CENTER);
+        secondPanel.add(subPanelForSecondPanel3,BorderLayout.SOUTH);
+
+
 
         this.add(panelContainer);
         this.pack();
         this.setVisible(true);
+    }
+    private static void initializeSubPanels(JPanel panel1,JPanel panel2,JPanel panel3){
+        panel1.setBackground(new Color(248,240,255));
+        panel2.setBackground(new Color(248,240,255));
+        panel3.setBackground(new Color(248,240,255));
+
+        panel1.setPreferredSize(new Dimension(200,130));
+        panel2.setPreferredSize(new Dimension(200,120));
+        panel3.setPreferredSize(new Dimension(200,50));
     }
 
     @Override
@@ -72,11 +152,17 @@ public class Register extends JFrame implements ActionListener {
             cardLayout.show(panelContainer,"2");
         }
         if(e.getSource()==landlordButton){
-            cardLayout.show(panelContainer,"3");
+            cardLayout.show(panelContainer,"2");
         }
         if(e.getSource()==backToLogInScreenButton){
             this.dispose();
             new LogIn();
+        }
+        if(e.getSource()==backButton){
+            cardLayout.show(panelContainer,"1");
+        }
+        if(e.getSource()==nextStepButton){
+            cardLayout.show(panelContainer,"3");
         }
     }
 }
